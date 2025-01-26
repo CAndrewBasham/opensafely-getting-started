@@ -4,27 +4,37 @@ author: "CAndrewBasham"
 date: "1/26/2025"
 output: html_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+## libs
+```{r}
+library('tidyverse')
 ```
 
-## R Markdown
+## age histogram
+```{r}
+df_input <- read_csv(
+  here::here("output", "~/dataset.csv.gz"),
+  col_types = cols(patient_id = col_integer(),age = col_double())
+)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+plot_age <- ggplot(data=df_input, aes(df_input$age)) + geom_histogram()
+ 
+ggsave(
+  plot= plot_age,
+  filename="report.png", path=here::here("output"),
+)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+plot_age <- ggplot(data=df_input, aes(df_input$age)) + geom_histogram()
 
-```{r cars}
-summary(cars)
+ggsave(
+  plot= plot_age,
+  filename="report.png", path=here::here("output"),
+)
+
 ```
 
-## Including Plots
+## summary of vars
+```{r}
+summary(df_input)
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
